@@ -4,10 +4,10 @@ services:
     build:
       context: ./influxdb
       dockerfile: ./influxdb.Dockerfile
-      environment:
-        INFLUXDB_ADMIN_USER: "${USERNAME}"
-        INFLUXDB_ADMIN_PASSWORD: "${PASSWORD}"
     image: frbsc/monitoring:db
+    environment:
+      INFLUXDB_ADMIN_USER: "${USERNAME}"
+      INFLUXDB_ADMIN_PASSWORD: "${PASSWORD}"
     volumes:
       - ./influxdb/data:/var/lib/influxdb/
     ports:
