@@ -4,10 +4,10 @@ services:
     build:
       context: ./influxdb
       dockerfile: ./influxdb.Dockerfile
+      args:
+        user: "${USERNAME}"
+        pwd: "${PASSWORD}"
     image: frbsc/monitoring:db
-    args:
-      user: "${USERNAME}"
-      pwd: "${PASSWORD}"
     volumes:
       - ./influxdb/data:/var/lib/influxdb/
     ports:
