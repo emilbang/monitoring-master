@@ -42,7 +42,7 @@ services:
       - influxdb
       - kapacitor
     ports:
-      "8888:8888"
+      - "8888:8888"
     depends_on:
       - kapacitor
       - influxdb
