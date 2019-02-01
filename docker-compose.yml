@@ -1,0 +1,48 @@
+version: '3'
+services:
+  influxdb:
+    build:
+      context: ./influxdb
+      dockerfile: ./influxdb.Dockerfile
+    image: frbsc/monitoring:db
+    args:
+      user: "${USERNAME}"
+      pwd: "${PASSWORD}"
+    volumes:
+      - ./influxdb/data:/var/lib/influxdb/
+    ports:
+      - "8086:8086"
+      - "8082:8082"
+      - "8089:8089"
+
+  kapacitor:
+    build:
+      context: ./kapacitor
+      dockerfile: ./kapacitor.Dockerfile
+    image: frbsc/monitoring:kapacitor
+    env_file:
+      ./.env
+    volumes:
+      - ./kapacitor/data:/var/lib/kapacitor/
+    links:
+      - influxdb
+    ports:
+      - "9092:9092"
+
+  chronograf:
+    build:
+      context: ./chronograf
+      dockerfile: ./chronograf.Dockerfile
+    image: frbsc/monitoring:chrono
+    environment:
+      RESOURCES_PATH: "/usr/share/chronograf/resources"
+    volumes:
+      - ./chronograf/data/:/var/lib/chronograf/
+    links:
+      - influxdb
+      - kapacitor
+    ports:
+      "8888:8888"
+    depends_on:
+      - kapacitor
+      - influxdb
