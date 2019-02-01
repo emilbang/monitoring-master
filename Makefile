@@ -13,3 +13,4 @@ run: build
 
 deploy: build
 	docker-compose up -d
+	cd ./monitoring-slave; make deploy
