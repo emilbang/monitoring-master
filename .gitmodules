@@ -1,0 +1,3 @@
+[submodule "monitoring-slave"]
+	path = monitoring-slave
+	url = git@github.com:frederiksberg/monitoring-slave
