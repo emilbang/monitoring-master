@@ -5,11 +5,9 @@ services:
       context: ./influxdb
       dockerfile: ./influxdb.Dockerfile
     image: frbsc/monitoring:db
-    # environment:
-    #   INFLUXDB_ADMIN_USER: "${USERNAME}"
-    #   INFLUXDB_ADMIN_PASSWORD: "${PASSWORD}"
-    env_file:
-      ./.env
+    environment:
+      - 'INFLUXDB_ADMIN_USER: ${DB_USER}'
+      - 'INFLUXDB_ADMIN_PASSWORD: ${DB_PWD}'
     volumes:
       - ./influxdb/data:/var/lib/influxdb/
     ports:
