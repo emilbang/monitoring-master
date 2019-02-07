@@ -29,6 +29,8 @@ To get debug output run
 $ make run
 ```
 
+The Chronograf interface will then be available on port 6088.
+
 ## Dependencies
 * **make**
 * **docker**
