@@ -14,8 +14,6 @@ run: build
 
 deploy: build
 	docker-compose up -d
-	cd ./monitoring-slave; make deploy
 
 kill:
-	cd ./monitoring-slave; docker-compose down
 	docker-compose down
