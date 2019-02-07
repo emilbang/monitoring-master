@@ -1,0 +1,12 @@
+version: '3'
+services:
+  telegraf:
+    build:
+      context: ./telegraf
+      dockerfile: ./Dockerfile
+    image: frbsc/monitoring:telegraf
+    env_file:
+      - ./.env
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    restart: unless-stopped
