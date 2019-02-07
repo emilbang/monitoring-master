@@ -42,7 +42,7 @@ services:
     image: frbsc/monitoring:chrono
     environment:
       - 'RESOURCES_PATH=/usr/share/chronograf/resources'
-      - 'INFLUXDB_URL=influxdb:8086'
+      - 'INFLUXDB_URL=http://influxdb:8086'
       - 'INFLUXDB_USERNAME=${DB_USER}'
       - 'INFLUXDB_PASSWORD=${DB_PWD}'
       - 'KAPACITOR_URL=kapacitor:9092'
