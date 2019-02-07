@@ -45,7 +45,7 @@ services:
       - 'INFLUXDB_URL=http://influxdb:8086'
       - 'INFLUXDB_USERNAME=${DB_USER}'
       - 'INFLUXDB_PASSWORD=${DB_PWD}'
-      - 'KAPACITOR_URL=kapacitor:9092'
+      - 'KAPACITOR_URL=http://kapacitor:9092'
     volumes:
       - ./chronograf/data/:/var/lib/chronograf/
     links:
