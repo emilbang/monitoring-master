@@ -7,7 +7,7 @@ build: clean
 	docker build -t frbsc/monitoring:influxdb -f ./influxdb/influxdb.Dockerfile ./influxdb
 	docker build -t frbsc/monitoring:kapacitor -f ./kapacitor/kapacitor.Dockerfile ./kapacitor
 	docker build -t frbsc/monitoring:chronograf -f ./chronograf/chronograf.Dockerfile ./chronograf
-	docker build -t frbsc/monitoring:telegraf -f ./telegraf/telegraf.Dockerfile ./telegraf
+	docker build -t frbsc/monitoring:telegraf-master -f ./telegraf/telegraf.Dockerfile ./telegraf
 
 run: build
 	docker-compose up

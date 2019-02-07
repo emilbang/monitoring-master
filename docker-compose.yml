@@ -62,7 +62,7 @@ services:
   telegraf:
     build:
       context: ./telegraf
-      dockerfile: ./telegraf/telegraf.Dockerfile
+      dockerfile: ./telegraf.Dockerfile
     image: frbsc/monitoring:telegraf-master
     env_file:
       - ./.env
