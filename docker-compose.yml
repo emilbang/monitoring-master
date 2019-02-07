@@ -16,6 +16,7 @@ services:
       - "6086:8086"
       - "6082:8082"
       - "6089:8089"
+    restart: unless-stopped
 
   kapacitor:
     build:
@@ -56,3 +57,17 @@ services:
     depends_on:
       - kapacitor
       - influxdb
+    restart: unless-stopped
+
+  telegraf:
+    build:
+      context: ./telegraf
+      dockerfile: ./telegraf/telegraf.Dockerfile
+    image: frbsc/monitoring:telegraf-master
+    env_file:
+      - ./.env
+    links:
+      - influxdb
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    restart: unless-stopped
