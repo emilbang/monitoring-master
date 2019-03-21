@@ -7,13 +7,13 @@ Use [monitoring-slave](https://github.com/frederiksberg/monitoring-slave) to dep
 
 To deploy, clone this repo.
 
-```shell
+```console
 $ git clone https://github.com/frederiksberg/monitoring-master
 ```
 
 Create a .env file with node intrinsics.
 
-```shell
+```console
 $ cp example.env .env
 $ vim .env
 ```
@@ -26,7 +26,7 @@ First time you run a new deployment you will need to generate new SSL-certs.
 
 Do this be starting the reverse proxy.
 
-```shell
+```console
 $ docker-compose up nginx
 ```
 
@@ -34,7 +34,7 @@ Wait for nginx to generate Diffie Helman keys. This should be apparent by the ou
 
 Once done keep this terminal running while executing this command in a seperate shell.
 
-```shell
+```console
 $ docker exec -it monitoring-master_nginx_1 /bin/sh
 ```
 
@@ -42,19 +42,19 @@ Where you replace *monitoring-master_nginx_1* with what your container is called
 
 You are now inside the running container, from here you can run certbot to get your certificate.
 
-```shell
-\# certbot
+```console
+# certbot
 ```
 
 Give it an email address and select the domain ypu specified in the nginx .conf file. When asked if you want to redirect traffic select option 2: redirect.
 
 Once done shut down everything and deploy by running
-```shell
+```console
 $ make deploy
 ```
 
 To get debug output run
-```shell
+```console
 $ make run
 ```
 
