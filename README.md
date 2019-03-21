@@ -50,7 +50,7 @@ Give it an email address and select the domain you specified in the nginx .conf 
 
 Once done shut down everything by running
 ```console
-$ docker-compose down
+$ make kill
 ```
 
 You can then deploy by running
