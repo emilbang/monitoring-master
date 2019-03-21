@@ -65,7 +65,7 @@ $ make run
 
 Note that the service won't be available until nginx has generated new Diffie Helman keys, this might take a few minutes.
 
-The Chronograf interface will then be available the root endpoint.
+The Chronograf interface will then be available on the root endpoint.
 
 ## Dependencies
 * **make**
