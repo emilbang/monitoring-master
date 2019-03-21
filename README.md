@@ -43,7 +43,7 @@ Where you replace *monitoring-master_nginx_1* with what your container is called
 You are now inside the running container, from here you can run certbot to get your certificate.
 
 ```shell
-# certbot
+\# certbot
 ```
 
 Give it an email address and select the domain ypu specified in the nginx .conf file. When asked if you want to redirect traffic select option 2: redirect.
