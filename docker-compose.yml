@@ -1,5 +1,19 @@
 version: '3'
 services:
+  nginx:
+    image: really/nginx-certbot
+    volumes:
+      - ./nginx/nginx:/etc/nginx/conf.d:rw
+      - ./nginx/letsencrypt:/etc/letsencrypt:rw
+    ports:
+      - 80:80
+      - 443:443
+    depends_on:
+      - chronograf
+    links:
+      - chronograf
+    restart: unless-stopped
+
   influxdb:
     build:
       context: ./influxdb
