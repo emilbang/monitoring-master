@@ -24,7 +24,7 @@ Inside this file you will need to change server_name to whatever your domain is.
 
 First time you run a new deployment you will need to generate new SSL-certs.
 
-Do this be starting the reverse proxy.
+Do this by starting the reverse proxy.
 
 ```console
 $ docker-compose up nginx
