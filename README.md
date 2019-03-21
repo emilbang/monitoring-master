@@ -58,6 +58,8 @@ To get debug output run
 $ make run
 ```
 
+Note that the service won't be available until nginx has generated new Diffie Helman keys, this might take few minutes.
+
 The Chronograf interface will then be available the root endpoint.
 
 ## Dependencies
