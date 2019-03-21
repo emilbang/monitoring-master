@@ -26,10 +26,6 @@ services:
       - 'INFLUXDB_HTTP_AUTH_ENABLED=true'
     volumes:
       - ./influxdb/data:/var/lib/influxdb/
-    ports:
-      - "6086:8086"
-      - "6082:8082"
-      - "6089:8089"
     restart: unless-stopped
 
   kapacitor:
@@ -47,8 +43,6 @@ services:
       - influxdb
     depends_on:
       - influxdb
-    ports:
-      - "6092:9092"
 
   chronograf:
     build:
@@ -66,8 +60,6 @@ services:
     links:
       - influxdb
       - kapacitor
-    ports:
-      - "6088:8888"
     depends_on:
       - kapacitor
       - influxdb
