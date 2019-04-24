@@ -69,7 +69,12 @@ Note that the service won't be available until nginx has generated new Diffie He
 The Chronograf interface will then be available on the root endpoint.
 
 Do note, that if runnning with github authentication an influx and kapacitor connection will not be set up for you.
-And you will need to do this manually.
+And you will need to do this manually. To read more about setting up github auth see: [This link][Chronograf docs](https://docs.influxdata.com/chronograf/v1.7/administration/managing-security/#configuring-github-authentication).
+
+If you don't want to use github auth, comment out this line from docker-compose.yml:
+```yml
+      - 'TOKEN_SECRET=${TOKEN_SECRET}'
+```
 
 ## Dependencies
 * **make**
