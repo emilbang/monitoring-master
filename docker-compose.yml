@@ -55,6 +55,10 @@ services:
       - 'INFLUXDB_USERNAME=${DB_USER}'
       - 'INFLUXDB_PASSWORD=${DB_PWD}'
       - 'KAPACITOR_URL=http://kapacitor:9092'
+      - 'TOKEN_SECRET=${TOKEN_SECRET}'
+      - 'GH_CLIENT_ID=${GH_CLIENT_ID}'
+      - 'GH_CLIENT_SECRET=${GH_CLIENT_SECRET}'
+      - 'GH_ORGS=${GH_ORGS}'
     volumes:
       - ./chronograf/data/:/var/lib/chronograf/
     links:
