@@ -17,6 +17,7 @@ Create a .env file with node intrinsics.
 $ cp example.env .env
 $ vim .env
 ```
+If you do not wish to run github authentication, you will only need to specify DB_USER and DB_PWD.
 
 You will need to edit the nginx config file found in **./nginx/nginx/**. Ours is called monitor.smartcityfrb.dk.conf, the name is not important but it is convention to name it after your domain.
 
@@ -66,6 +67,9 @@ $ make run
 Note that the service won't be available until nginx has generated new Diffie Helman keys, this might take a few minutes.
 
 The Chronograf interface will then be available on the root endpoint.
+
+Do note, that if runnning with github authentication an influx and kapacitor connection will not be set up for you.
+And you will need to do this manually.
 
 ## Dependencies
 * **make**
