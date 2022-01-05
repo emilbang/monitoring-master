@@ -1,34 +1,25 @@
-version: '3'
+version: '3.5'
 services:
-  nginx:
-    image: really/nginx-certbot
-    volumes:
-      - ./nginx/nginx:/etc/nginx/conf.d:rw
-      - ./nginx/letsencrypt:/etc/letsencrypt:rw
-    ports:
-      - 80:80
-      - 443:443
-    depends_on:
-      - chronograf
-    links:
-      - chronograf
-    restart: unless-stopped
-
   influxdb:
+    container_name: influxdb
     build:
       context: ./influxdb
       dockerfile: ./influxdb.Dockerfile
-    image: frbsc/monitoring:db
+    image: frbsc/monitoring:influxdb
     environment:
-      - 'INFLUXDB_DB=monitor'
+      - 'INFLUXDB_DB=telegraf'
       - 'INFLUXDB_ADMIN_USER=${DB_USER}'
       - 'INFLUXDB_ADMIN_PASSWORD=${DB_PWD}'
       - 'INFLUXDB_HTTP_AUTH_ENABLED=true'
     volumes:
-      - ./influxdb/data:/var/lib/influxdb/
+      - influx_data:/var/lib/influxdb/
+    networks:
+      - front-facing
+      - internal
     restart: unless-stopped
 
   kapacitor:
+    container_name: kapacitor
     build:
       context: ./kapacitor
       dockerfile: ./kapacitor.Dockerfile
@@ -38,13 +29,14 @@ services:
       - 'KAPACITOR_INFLUXDB_0_USERNAME=${DB_USER}'
       - 'KAPACITOR_INFLUXDB_0_PASSWORD=${DB_PWD}'
     volumes:
-      - ./kapacitor/data:/var/lib/kapacitor/
-    links:
-      - influxdb
+      - kapacitor_data:/var/lib/kapacitor/
+    networks:
+      - internal
     depends_on:
       - influxdb
 
   chronograf:
+    container_name: chronograf
     build:
       context: ./chronograf
       dockerfile: ./chronograf.Dockerfile
@@ -60,24 +52,38 @@ services:
       - 'GH_CLIENT_SECRET=${GH_CLIENT_SECRET}'
       - 'GH_ORGS=${GH_ORGS}'
     volumes:
-      - ./chronograf/data/:/var/lib/chronograf/
-    links:
-      - influxdb
-      - kapacitor
+      - chronograf_data:/var/lib/chronograf/
+    networks:
+      - front-facing
+      - internal
     depends_on:
       - kapacitor
       - influxdb
     restart: unless-stopped
 
   telegraf:
+    container_name: telegraf
     build:
       context: ./telegraf
       dockerfile: ./telegraf.Dockerfile
     image: frbsc/monitoring:telegraf-master
     env_file:
       - ./.env
-    links:
+    networks:
+      - internal
+    depends_on:
       - influxdb
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
     restart: unless-stopped
+
+volumes:
+  influx_data:
+  kapacitor_data:
+  chronograf_data:
+
+networks:
+  front-facing:
+    external: true
+    name: nginx_test
+  internal:
